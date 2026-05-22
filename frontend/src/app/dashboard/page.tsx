@@ -273,13 +273,13 @@ export default function DashboardPage() {
         <main className="max-w-7xl mx-auto px-4 sm:px-8 py-8 space-y-8">
           
           {/* Header Banner */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white/40 dark:bg-zinc-900/40 border border-slate-200/50 dark:border-zinc-800/40 p-6 sm:p-8 rounded-3xl backdrop-blur-xl shadow-sm">
+          <div className="flex flex-col gap-4 bg-white/40 dark:bg-zinc-900/40 border border-slate-200/50 dark:border-zinc-800/40 p-5 sm:p-8 rounded-3xl backdrop-blur-xl shadow-sm">
             <div className="space-y-1.5">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-100/60 dark:border-indigo-900/40 animate-pulse">
                 <Sparkles className="h-3 w-3" />
                 ContentAlchemy Engine v2.0
               </div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-zinc-50 tracking-tight">
+              <h1 className="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-zinc-50 tracking-tight">
                 Welcome back, {user?.name || "Creator"}
               </h1>
               <p className="text-sm text-slate-500 dark:text-zinc-400 max-w-xl">
@@ -287,17 +287,19 @@ export default function DashboardPage() {
               </p>
             </div>
             
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2">
               <Button
                 variant="outline"
+                size="sm"
                 onClick={() => router.push("/dashboard/settings")}
-                className="border-slate-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 hover:bg-slate-50 dark:hover:bg-zinc-800 rounded-xl"
+                className="border-slate-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 hover:bg-slate-50 dark:hover:bg-zinc-800 rounded-xl text-sm"
               >
                 Account Settings
               </Button>
               <Button
+                size="sm"
                 onClick={() => router.push("/dashboard/library")}
-                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-xl shadow-sm"
+                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-xl shadow-sm text-sm"
               >
                 View Library
               </Button>
@@ -423,10 +425,10 @@ export default function DashboardPage() {
           </div>
 
           {/* Main workspace layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 lg:gap-8 items-start">
             
             {/* Content Generator Column */}
-            <div className="lg:col-span-2 space-y-4">
+            <div className="xl:col-span-2 space-y-4">
               <div className="flex items-center justify-between px-1">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-bold text-slate-450 dark:text-zinc-550 uppercase tracking-widest">Workspace</span>
@@ -595,7 +597,7 @@ export default function DashboardPage() {
               </DialogHeader>
 
               {/* Multi-Pane Layout inside Modal */}
-              <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-6">
                 
                 {/* Left Source Info (2/5 cols) */}
                 <div className="lg:col-span-2 space-y-4 bg-slate-50/50 dark:bg-zinc-900/20 border border-slate-200/40 dark:border-zinc-800/30 p-4 rounded-xl h-fit">

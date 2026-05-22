@@ -166,7 +166,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]"
+              className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1]"
             >
               Content. Once.{" "}
               <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 bg-clip-text text-transparent glow-text">
@@ -187,22 +187,22 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
+              className="mt-10 flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center px-4 sm:px-0"
             >
-              <Link href="/signup">
+              <Link href="/signup" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold px-8 h-13 text-base shadow-lg shadow-indigo-200 dark:shadow-none hover:scale-105 active:scale-95 transition-all duration-300"
+                  className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold px-8 h-12 text-base shadow-lg shadow-indigo-200 dark:shadow-none hover:scale-105 active:scale-95 transition-all duration-300"
                 >
                   Start Repurposing Free
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
-              <a href="#playground">
+              <a href="#playground" className="w-full sm:w-auto">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-slate-300 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-900 font-semibold px-8 h-13 text-base hover:scale-105 active:scale-95 transition-all duration-300"
+                  className="w-full sm:w-auto border-slate-300 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-900 font-semibold px-8 h-12 text-base hover:scale-105 active:scale-95 transition-all duration-300"
                 >
                   Try Interactive Demo
                 </Button>
@@ -213,7 +213,7 @@ export default function LandingPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.6 }}
-              className="mt-12 flex items-center justify-center gap-2 text-sm text-slate-400 dark:text-zinc-500"
+              className="mt-12 flex flex-wrap items-center justify-center gap-2 text-sm text-slate-400 dark:text-zinc-500 px-4"
             >
               <div className="flex -space-x-2">
                 {[1, 2, 3, 4].map((i) => (

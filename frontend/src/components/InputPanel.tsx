@@ -95,9 +95,9 @@ export function InputPanel({ prefill, onPrefillUsed, onGenerationSuccess }: Inpu
 
   return (
     <div className="space-y-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         {/* Input Area */}
-        <div className="lg:col-span-2">
+        <div className="xl:col-span-2">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -131,7 +131,7 @@ export function InputPanel({ prefill, onPrefillUsed, onGenerationSuccess }: Inpu
                     setContent(e.target.value);
                     setSourceType("text_paste");
                   }}
-                  className="min-h-[320px] font-mono text-sm resize-y rounded-xl border-slate-200 dark:border-zinc-850 focus:border-indigo-400 dark:focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950/40 transition-all duration-200 text-slate-800 dark:text-zinc-200"
+                  className="min-h-[200px] sm:min-h-[280px] lg:min-h-[320px] font-mono text-sm resize-y rounded-xl border-slate-200 dark:border-zinc-850 focus:border-indigo-400 dark:focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950/40 transition-all duration-200 text-slate-800 dark:text-zinc-200"
                 />
                 {content && (
                   <p className="mt-2 text-xs text-slate-400 dark:text-zinc-500">
