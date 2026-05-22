@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // No output: 'export' — Netlify plugin handles SSR/SSG routing
 };
 
 export default nextConfig;
