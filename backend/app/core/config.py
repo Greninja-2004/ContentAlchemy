@@ -35,3 +35,7 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+# Always ensure FRONTEND_URL is included in CORS origins
+if settings.FRONTEND_URL and settings.FRONTEND_URL not in settings.CORS_ORIGINS:
+    settings.CORS_ORIGINS.append(settings.FRONTEND_URL)
