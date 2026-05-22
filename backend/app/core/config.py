@@ -25,6 +25,11 @@ class Settings(BaseSettings):
     STRIPE_MAX_PRICE_ID: str = ""
     FRONTEND_URL: str = "http://localhost:3000"
 
+    # Google OAuth
+    GOOGLE_CLIENT_ID: str = ""
+    GOOGLE_CLIENT_SECRET: str = ""
+    GOOGLE_REDIRECT_URI: str = "http://localhost:8000/api/auth/google/callback"
+
     CORS_ORIGINS: list[str] = [
         "http://localhost:3000",
         "http://127.0.0.1:3000",

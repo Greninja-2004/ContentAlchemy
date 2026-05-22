@@ -34,7 +34,9 @@ async def init_db():
                 ("stripe_subscription_id", "VARCHAR(255) NULL"),
                 ("subscription_tier", "VARCHAR(50) DEFAULT 'free'"),
                 ("subscription_status", "VARCHAR(50) NULL"),
-                ("subscription_end", "DATETIME NULL")
+                ("subscription_end", "DATETIME NULL"),
+                ("google_id", "VARCHAR(255) NULL"),
+                ("avatar_url", "VARCHAR(512) NULL"),
             ]
 
             for col_name, col_type in new_cols:
