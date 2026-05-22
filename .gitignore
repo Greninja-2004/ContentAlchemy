@@ -1,0 +1,23 @@
+node_modules/
+.next/
+.env
+.env.local
+__pycache__/
+*.pyc
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+.DS_Store
+
+# DB, Logs, and virtualenvs
+*.db
+*.log
+backend/venv/
+backend/.env
+frontend/.env.local
+frontend/node_modules/
+frontend/.next/
+frontend/tsconfig.tsbuildinfo
+stripe_cli*
