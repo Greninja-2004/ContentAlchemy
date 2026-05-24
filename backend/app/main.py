@@ -13,6 +13,11 @@ from app.api.routes import auth, repurpose, library, billing
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    print("=== STRIPE CONFIGURATION DIAGNOSTICS ===")
+    print(f"STRIPE_SECRET_KEY loaded: {bool(settings.STRIPE_SECRET_KEY)}")
+    print(f"STRIPE_PRO_PRICE_ID loaded: {bool(settings.STRIPE_PRO_PRICE_ID)} (Length: {len(settings.STRIPE_PRO_PRICE_ID) if settings.STRIPE_PRO_PRICE_ID else 0})")
+    print(f"STRIPE_MAX_PRICE_ID loaded: {bool(settings.STRIPE_MAX_PRICE_ID)} (Length: {len(settings.STRIPE_MAX_PRICE_ID) if settings.STRIPE_MAX_PRICE_ID else 0})")
+    print("========================================")
     await init_db()
     yield
 
