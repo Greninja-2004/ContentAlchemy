@@ -10,6 +10,9 @@ venv/
 dist/
 build/
 .DS_Store
+.vscode/
+.agent/
+
 
 # DB, Logs, and virtualenvs
 *.db

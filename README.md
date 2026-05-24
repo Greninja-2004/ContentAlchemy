@@ -128,7 +128,7 @@ Choose backend or frontend setup details below to get started locally:
 
 5. **Start the FastAPI backend server**:
    ```bash
-   python -m uvicorn app.main:app --reload --port 8000
+   python -m uvicorn app.main:app --reload --reload-exclude "*.db" --port 8000
    ```
    *Swagger docs will be available at `http://localhost:8000/docs`.*
 

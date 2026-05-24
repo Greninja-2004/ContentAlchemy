@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store";
 import { api, GenerationItem } from "@/lib/api";
@@ -40,31 +40,31 @@ import { motion, useScroll } from "framer-motion";
 
 const TEMPLATES = [
   {
-    title: "Blog to Twitter Thread",
-    description: "Repurpose an article into a viral X thread.",
+    title: "Engineering Blog to Thread",
+    description: "Convert a deep-dive technical post into an X thread.",
     icon: "🐦",
     sourceType: "blog_link",
     tone: "educational",
-    formats: ["twitter", "linkedin"],
-    placeholderContent: "https://blog.example.com/mastering-git-internals",
+    formats: ["twitter_thread", "linkedin_post"],
+    placeholderContent: "https://blog.alchemy.dev/why-git-is-just-a-dag-of-objects",
   },
   {
-    title: "YouTube to LinkedIn Post",
-    description: "Extract video highlights into a professional post.",
+    title: "YouTube Tutorial to LinkedIn Post",
+    description: "Extract the core highlights from a technical walkthrough.",
     icon: "💼",
     sourceType: "youtube_url",
     tone: "professional",
-    formats: ["linkedin", "newsletter"],
-    placeholderContent: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    formats: ["linkedin_post", "newsletter_draft"],
+    placeholderContent: "https://www.youtube.com/watch?v=F3G95a12T9s",
   },
   {
-    title: "Idea to Short Script",
-    description: "Write a high-hook TikTok outline.",
-    icon: "🎵",
+    title: "PR Best Practices Outline",
+    description: "Translate code design principles into developer-advocacy posts.",
+    icon: "📝",
     sourceType: "text_paste",
     tone: "casual",
-    formats: ["tiktok", "instagram"],
-    placeholderContent: "A 30-second explanation of why database indexes speed up queries, comparing them to a book index.",
+    formats: ["linkedin_post", "twitter_thread"],
+    placeholderContent: "Treat code reviews like editorial reviews. Clear descriptions, inline comments, and self-documenting code save more hours than AI coding assistants. Make readability your team's primary KPI.",
   },
 ];
 
@@ -77,6 +77,21 @@ const FORMAT_META: Record<string, { icon: string; label: string; color: string }
   youtube_description: { icon: "🎬", label: "YouTube Description", color: "from-red-500 to-red-600" },
   email_subject: { icon: "✉️", label: "Email Campaign", color: "from-amber-500 to-orange-500" },
   reddit_post: { icon: "🤖", label: "Reddit Post", color: "from-orange-500 to-red-500" },
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.06
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 90, damping: 14 } }
 };
 
 export default function DashboardPage() {
@@ -124,10 +139,10 @@ export default function DashboardPage() {
     }
   };
 
-  const refreshAllTelemetry = () => {
+  const refreshAllTelemetry = useCallback(() => {
     loadUsage();
     loadRecent();
-  };
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -145,9 +160,12 @@ export default function DashboardPage() {
         router.push("/login");
       });
     } else {
-      refreshAllTelemetry();
+      const timer = setTimeout(() => {
+        refreshAllTelemetry();
+      }, 0);
+      return () => clearTimeout(timer);
     }
-  }, [isAuthenticated, router, setUser]);
+  }, [isAuthenticated, router, setUser, refreshAllTelemetry]);
 
   const handleDeleteRecent = async (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -299,7 +317,7 @@ export default function DashboardPage() {
               <Button
                 size="sm"
                 onClick={() => router.push("/dashboard/library")}
-                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-xl shadow-sm text-sm"
+                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-xl shadow-sm text-sm cursor-pointer"
               >
                 View Library
               </Button>
@@ -307,12 +325,20 @@ export default function DashboardPage() {
           </div>
 
           {/* Metrics Telemetry Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            animate="show"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+          >
             
             {/* Usage Quota Meter */}
-            <div className="bg-white/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/60 p-5 rounded-2xl backdrop-blur-md shadow-sm flex items-center justify-between card-hover">
+            <motion.div 
+              variants={itemVariants}
+              className="bg-white/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/60 p-5 rounded-2xl backdrop-blur-md shadow-sm flex items-center justify-between card-hover"
+            >
               <div className="space-y-1">
-                <span className="text-xs font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-widest block">Daily Quota</span>
+                <span className="text-xs font-bold text-slate-400 dark:text-zinc-550 uppercase tracking-widest block font-heading">Daily Quota</span>
                 <div className="flex items-center gap-1.5">
                   <span className="text-lg font-bold text-slate-800 dark:text-zinc-150">
                     {isUnlimited ? "Unlimited" : `${count} / ${limit}`}
@@ -324,14 +350,14 @@ export default function DashboardPage() {
                 {!isUnlimited && count >= limit ? (
                   <button 
                     onClick={() => router.push("/dashboard/settings")}
-                    className="text-[10px] text-rose-500 hover:text-rose-600 font-bold block"
+                    className="text-[10px] text-rose-500 hover:text-rose-600 font-bold block transition-colors cursor-pointer"
                   >
                     Limit Reached! Upgrade plan.
                   </button>
                 ) : (
                   <button 
                     onClick={() => router.push("/dashboard/settings")}
-                    className="text-[10px] text-indigo-500 dark:text-indigo-400 hover:underline block font-semibold"
+                    className="text-[10px] text-indigo-500 dark:text-indigo-400 hover:underline block font-semibold transition-colors cursor-pointer"
                   >
                     Manage usage limits
                   </button>
@@ -365,12 +391,15 @@ export default function DashboardPage() {
                   {isUnlimited ? "∞" : `${Math.round(percentage)}%`}
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Total Time Saved */}
-            <div className="bg-white/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/60 p-5 rounded-2xl backdrop-blur-md shadow-sm flex items-center justify-between card-hover">
+            <motion.div 
+              variants={itemVariants}
+              className="bg-white/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/60 p-5 rounded-2xl backdrop-blur-md shadow-sm flex items-center justify-between card-hover"
+            >
               <div className="space-y-1">
-                <span className="text-xs font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-widest block">Saved Effort</span>
+                <span className="text-xs font-bold text-slate-400 dark:text-zinc-550 uppercase tracking-widest block font-heading">Saved Effort</span>
                 <span className="text-lg font-bold text-slate-800 dark:text-zinc-150 block">
                   {usage ? formatSavedTime(usage.total_count) : "0 mins"}
                 </span>
@@ -381,18 +410,21 @@ export default function DashboardPage() {
               <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 flex items-center justify-center">
                 <Hourglass className="h-5 w-5" />
               </div>
-            </div>
+            </motion.div>
 
             {/* Total Creations */}
-            <div className="bg-white/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/60 p-5 rounded-2xl backdrop-blur-md shadow-sm flex items-center justify-between card-hover">
+            <motion.div 
+              variants={itemVariants}
+              className="bg-white/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/60 p-5 rounded-2xl backdrop-blur-md shadow-sm flex items-center justify-between card-hover"
+            >
               <div className="space-y-1">
-                <span className="text-xs font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-widest block">Total Creations</span>
+                <span className="text-xs font-bold text-slate-400 dark:text-zinc-550 uppercase tracking-widest block font-heading">Total Creations</span>
                 <span className="text-lg font-bold text-slate-800 dark:text-zinc-150 block">
                   {usage?.total_count ?? 0} items
                 </span>
                 <button
                   onClick={() => router.push("/dashboard/library")}
-                  className="text-[10px] text-slate-400 dark:text-zinc-500 hover:text-indigo-500 dark:hover:text-indigo-400 hover:underline flex items-center gap-0.5 font-medium"
+                  className="text-[10px] text-slate-400 dark:text-zinc-550 hover:text-indigo-500 dark:hover:text-indigo-400 hover:underline flex items-center gap-0.5 font-medium cursor-pointer"
                 >
                   Explore library index <ChevronRight className="h-2.5 w-2.5" />
                 </button>
@@ -400,12 +432,15 @@ export default function DashboardPage() {
               <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center">
                 <Database className="h-5 w-5" />
               </div>
-            </div>
+            </motion.div>
 
             {/* Engine Status */}
-            <div className="bg-white/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/60 p-5 rounded-2xl backdrop-blur-md shadow-sm flex items-center justify-between card-hover">
+            <motion.div 
+              variants={itemVariants}
+              className="bg-white/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/60 p-5 rounded-2xl backdrop-blur-md shadow-sm flex items-center justify-between card-hover"
+            >
               <div className="space-y-1">
-                <span className="text-xs font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-widest block">Alchemy Engine</span>
+                <span className="text-xs font-bold text-slate-400 dark:text-zinc-550 uppercase tracking-widest block font-heading">Alchemy Engine</span>
                 <span className="text-lg font-bold text-slate-800 dark:text-zinc-150 flex items-center gap-1.5">
                   Gemini API Flash
                   <span className="relative flex h-2 w-2">
@@ -420,9 +455,9 @@ export default function DashboardPage() {
               <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
                 <Cpu className="h-5 w-5" />
               </div>
-            </div>
+            </motion.div>
 
-          </div>
+          </motion.div>
 
           {/* Main workspace layout */}
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 lg:gap-8 items-start">

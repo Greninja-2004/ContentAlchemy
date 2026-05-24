@@ -107,7 +107,7 @@ docker run --name postgres -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgre
 alembic upgrade head
 
 # Step 4: Test API
-python -m uvicorn app.main:app --reload
+python -m uvicorn app.main:app --reload --reload-exclude "*.db"
 # Visit http://localhost:8000/docs
 ```
 

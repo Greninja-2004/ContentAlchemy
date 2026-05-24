@@ -24,12 +24,14 @@ export function CustomCursor() {
       }
     };
 
+    let animationFrameId: number;
+
     const animate = () => {
       pos.current.x += (target.current.x - pos.current.x) * 0.15;
       pos.current.y += (target.current.y - pos.current.y) * 0.15;
       cursor.style.left = `${pos.current.x}px`;
       cursor.style.top = `${pos.current.y}px`;
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
     window.addEventListener("mousemove", onMouseMove);
@@ -39,6 +41,7 @@ export function CustomCursor() {
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseover", onMouseOver);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 

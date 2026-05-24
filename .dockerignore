@@ -1,0 +1,12 @@
+node_modules/
+.next/
+backend/venv/
+backend/.env
+frontend/.next/
+frontend/node_modules/
+activepieces/cache/
+activepieces/postgres_data/
+activepieces/redis_data/
+.git/
+.gitignore
+.DS_Store

@@ -24,9 +24,13 @@ function LoginForm() {
 
   useEffect(() => {
     const error = searchParams.get("error");
-    if (error === "google_token_failed") setGoogleError("Google sign-in failed. Please try again.");
-    else if (error === "google_userinfo_failed") setGoogleError("Could not fetch your Google profile.");
-    else if (error) setGoogleError("Google authentication failed.");
+    if (!error) return;
+    const timer = setTimeout(() => {
+      if (error === "google_token_failed") setGoogleError("Google sign-in failed. Please try again.");
+      else if (error === "google_userinfo_failed") setGoogleError("Could not fetch your Google profile.");
+      else setGoogleError("Google authentication failed.");
+    }, 0);
+    return () => clearTimeout(timer);
   }, [searchParams]);
 
   const handleGoogleLogin = () => {

@@ -15,6 +15,13 @@ import {
   Cpu,
   RefreshCw,
   Share2,
+  ThumbsUp,
+  MessageSquare,
+  Repeat,
+  Heart,
+  Bookmark,
+  Globe,
+  User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/Navbar";
@@ -24,24 +31,24 @@ import { AnimatedBackground } from "@/components/AnimatedBackground";
 const presets = [
   {
     tab: "Tech Tutorial",
-    title: "How Git Works Under the Hood",
-    input: "Explain that Git is just a simple object database containing Blobs (file contents), Trees (folders), and Commits (pointing to trees). Stop memorizing Git commands and understand the graph structure to master version control forever.",
-    linkedin: "Ever wondered how Git actually works under the hood? The core concept is straightforward: Git is primarily a simple object database.\n\nFirst, Blobs store the compressed content of files.\nSecond, Trees organize these files into directories using hash references.\nThird, Commits point to specific Trees that represent snapshots of the project.\n\nRather than memorizing command line utilities, understanding this underlying graph structure will make version control intuitive.\n\n#SoftwareEngineering #Git #VersionControl",
-    twitter: "1/ Git is not a complex mystery. It is a simple directed acyclic graph database.\n\n2/ Every tracked file is stored as a Blob, containing only content, indexed by a hash key.\n\n3/ A Tree behaves like a directory. It lists names, permissions, and hashes of blobs or other sub-trees.\n\n4/ A Commit links to a root Tree snapshot and records parent hashes to form history branches.\n\n5/ Understanding this structure makes version control intuitive."
+    title: "Why Git is just a Content-Addressable DAG",
+    input: "Stop memorizing random Git flags. Under the hood, Git is just a simple directed acyclic graph (DAG) of objects. It has Blobs for file content, Trees for directory structures, and Commits pointing to those Trees. Once you understand the graph structure, merge conflicts and rebases make perfect sense.",
+    linkedin: "Under the hood, Git is not a black box of magic commands—it's just a simple directed acyclic graph (DAG) of objects.\n\nHere is how Git stores your codebase:\n\n1. 📂 Blobs: Store raw file content, indexed by SHA-1 hash. No filenames or metadata.\n2. 🌳 Trees: Point to blobs or other trees, storing names and permissions (like directories).\n3. ⚙️ Commits: Reference a root Tree, parent commit hashes, and commit metadata.\n\nWhen you commit, Git is just creating new tree objects and updating references. Stop memorizing commands and learn the DAG to master version control forever.\n\n#SoftwareEngineering #Git #DevOps #Productivity",
+    twitter: "1/ Git is not a black box of magic commands. Under the hood, it's a simple Directed Acyclic Graph (DAG) database.\n\n2/ Every file content is stored in a Blob, indexed by its SHA-1 hash.\n\n3/ Directories are Trees, referencing names and hashes of other trees or blobs.\n\n4/ Commits are nodes pointing to a root Tree, tracking history through parent commits.\n\n5/ Learn the graph structure, and merge conflicts become easy to resolve."
   },
   {
-    tab: "Startup Pitch",
-    title: "Introducing ContentAlchemy",
-    input: "ContentAlchemy is a content publishing workflow tool that converts text manuscripts, blog entries, or video scripts into social media formats. It allows authors to manage their content distribution in one centralized interface, saving hours of manual formatting.",
-    linkedin: "Content publishers often spend hours manually reformatting articles for different platforms.\n\nWith ContentAlchemy, you upload a text source once, and the application generates correctly sized, formatted, and toned posts for LinkedIn, Twitter, and email campaigns in seconds.\n\nThis workflow optimization saves up to 10 hours a week for independent writers.\n\n#ContentStrategy #Productivity #Publishing",
-    twitter: "1/ Publishers waste hours reformatting articles for different channels.\n\nHere is how we automate this with ContentAlchemy:\n\n2/ Paste your article, import a blog URL, or upload a transcript.\n\n3/ The application automatically adjusts the tone, formatting, and hooks for each target platform.\n\n4/ Download all generated formats at once to simplify your publishing pipeline."
+    tab: "Product Engineering",
+    title: "Treat Pull Requests like Editorial Reviews",
+    input: "The best engineering teams treat code reviews like editorial reviews. High-quality PR descriptions, clear inline comments, and self-documenting code save more engineering hours than any AI coding assistant. Make readability your team's primary KPI.",
+    linkedin: "Treat your pull requests like editorial submissions, not code dumps.\n\nThe highest-performing engineering teams know that code is read 10x more than it's written. Self-documenting code, inline context, and rich PR descriptions save more engineering hours than any automated assistant.\n\nBefore opening a PR, ask yourself: could a junior engineer understand the 'why' behind this change in 60 seconds?\n\n#SoftwareDesign #DeveloperVelocity #EngineeringLeadership",
+    twitter: "1/ The best engineering teams treat Pull Requests like editorial reviews.\n\n2/ Code is read 10x more than it is written. Make readability your team's primary KPI.\n\n3/ Write clear PR descriptions explaining the 'why' behind the implementation, not just the 'what'.\n\n4/ Add inline comments for non-obvious code decisions to save future debug time."
   },
   {
-    tab: "Fitness Habit",
-    title: "Three Daily Habits for High Energy",
-    input: "Stop buying expensive supplements. Double your energy by drinking 500ml water first thing in the morning, getting 10 minutes of direct sunlight during a midday walk, and doing progressive overload weights 3 times a week.",
-    linkedin: "Improving daily energy levels does not require expensive supplements. Focus on three foundational habits instead:\n\n1. Hydration: Drink 500ml of water immediately upon waking.\n2. Light Exposure: Get 10 minutes of direct sunlight during a midday walk.\n3. Strength Training: Perform progressive overload weight training three times a week.\n\nConsistency with basic habits yields better long-term results than complex routines.\n\n#Health #Habits #Productivity",
-    twitter: "1/ Foundational habits are more effective than expensive supplements. Here are 3 habits to increase daily energy:\n\n2/ Habit 1: Drink 500ml of water immediately after waking to rehydrate.\n\n3/ Habit 2: Get 10 minutes of direct sunlight during a walk around noon.\n\n4/ Habit 3: Lift weights three times a week, focusing on gradual, progressive overload."
+    tab: "SaaS Design",
+    title: "The Fallacy of the 'Minimum Viable Product'",
+    input: "An MVP shouldn't be buggy or half-baked. It should be a 'Minimum Viable Experience'—narrow in scope, but exceptionally polished in execution. If your early users aren't delighted by the core loop, adding more features will only accelerate your churn.",
+    linkedin: "An MVP shouldn't be a buggy, half-baked product. Focus on building a Minimum Viable Experience (MVE) instead.\n\nReduce your scope to the absolute minimum, but execute that core loop with exceptional polish. If users aren't delighted by the primary flow, adding more features won't save you from high churn. Double down on friction-free onboarding first.\n\n#SaaS #ProductDesign #GrowthStyle",
+    twitter: "1/ The MVP is often misunderstood. A 'minimum viable product' shouldn't mean a buggy, half-baked experience.\n\n2/ Instead, build a 'Minimum Viable Experience' (MVE).\n\n3/ Keep the scope tiny, but polish the execution. If users don't love the core loop, more features won't fix it.\n\n4/ Polish the first 5 minutes of your user journey above all else."
   }
 ];
 
@@ -71,12 +78,14 @@ export default function LandingPage() {
   const [displayedTwitter, setDisplayedTwitter] = useState("");
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
+  const currentPreset = presets.find((_, i) => i === selectedPreset) || presets[0];
+
   const handleSimulateRepurpose = () => {
     setDemoGenerating(true);
     setDemoResults(null);
     setTimeout(() => {
       setDemoGenerating(false);
-      setDemoResults(presets[selectedPreset]);
+      setDemoResults(currentPreset);
     }, 1200);
   };
 
@@ -159,18 +168,18 @@ export default function LandingPage() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/40 text-sm text-indigo-700 dark:text-indigo-400 font-medium mb-8"
             >
               <Sparkles className="h-4 w-4 animate-pulse" />
-              Next-Generation Content Rebranding
+              Multi-channel Content Distribution
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1]"
+              className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1] font-heading"
             >
-              Content. Once.{" "}
+              Your content engine on{" "}
               <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 bg-clip-text text-transparent glow-text">
-                Everywhere.
+                autopilot.
               </span>
             </motion.h1>
 
@@ -180,7 +189,7 @@ export default function LandingPage() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="mt-6 text-lg sm:text-xl text-slate-500 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed"
             >
-              Transform your blogs, transcripts, and ideas into 10+ social formats instantly. Crafted for maximum organic engagement, powered by Claude.
+              ContentAlchemy transforms raw articles, YouTube videos, and transcripts into ready-to-publish threads, scripts, and newsletters. Refined for human readers, optimized for platform algorithms.
             </motion.p>
 
             <motion.div
@@ -194,7 +203,7 @@ export default function LandingPage() {
                   size="lg"
                   className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold px-8 h-12 text-base shadow-lg shadow-indigo-200 dark:shadow-none hover:scale-105 active:scale-95 transition-all duration-300"
                 >
-                  Start Repurposing Free
+                  Build your campaign
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
@@ -204,7 +213,7 @@ export default function LandingPage() {
                   variant="outline"
                   className="w-full sm:w-auto border-slate-300 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-900 font-semibold px-8 h-12 text-base hover:scale-105 active:scale-95 transition-all duration-300"
                 >
-                  Try Interactive Demo
+                  Try the sandbox
                 </Button>
               </a>
             </motion.div>
@@ -213,7 +222,7 @@ export default function LandingPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.6 }}
-              className="mt-12 flex flex-wrap items-center justify-center gap-2 text-sm text-slate-400 dark:text-zinc-500 px-4"
+              className="mt-12 flex flex-wrap items-center justify-center gap-2 text-sm text-slate-450 dark:text-zinc-500 px-4"
             >
               <div className="flex -space-x-2">
                 {[1, 2, 3, 4].map((i) => (
@@ -223,7 +232,7 @@ export default function LandingPage() {
                   />
                 ))}
               </div>
-              <span className="ml-2 font-medium">Loved by 150+ modern content creators</span>
+              <span className="ml-2 font-medium">Engineered for solo creators, developer advocates, and marketing teams.</span>
             </motion.div>
 
             {/* Scroll indicator */}
@@ -309,7 +318,7 @@ export default function LandingPage() {
                       Content Input Preview
                     </span>
                     <div className="flex-1 bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800/80 rounded-xl p-5 font-mono text-sm leading-relaxed min-h-[160px] text-slate-700 dark:text-zinc-300">
-                      {presets[selectedPreset].input}
+                      {currentPreset.input}
                     </div>
                     <Button
                       onClick={handleSimulateRepurpose}
@@ -333,25 +342,37 @@ export default function LandingPage() {
                   <div className="flex flex-col gap-4">
                     <span className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
                       <Share2 className="h-3.5 w-3.5 text-indigo-500" />
-                      Generated Outputs (Side-by-Side)
+                      Social Feed Previews
                     </span>
 
-                    <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {/* LinkedIn Simulated Output */}
-                      <div className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800/80 rounded-xl p-4 flex flex-col justify-between min-h-[220px] relative overflow-hidden">
-                        <div className="absolute top-0 left-0 right-0 h-1 bg-blue-600" />
-                        <div>
-                          <div className="flex justify-between items-center mb-3">
-                            <span className="text-xs font-bold text-blue-600 flex items-center gap-1">
-                              💼 LinkedIn Post
-                            </span>
+                    <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* LinkedIn Mockup */}
+                      <div className="bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800/80 rounded-2xl flex flex-col justify-between min-h-[260px] shadow-sm relative overflow-hidden text-left">
+                        <div className="p-4 flex-1">
+                          {/* LinkedIn Header */}
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="flex items-center gap-2">
+                              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-sm font-heading">
+                                CA
+                              </div>
+                              <div>
+                                <h4 className="text-xs font-bold text-slate-800 dark:text-zinc-200 flex items-center gap-1 leading-none">
+                                  ContentAlchemy Demo
+                                </h4>
+                                <p className="text-[10px] text-slate-450 dark:text-zinc-500 mt-1 leading-none">
+                                  Developer Relations Engine • 2h • <Globe className="inline-block h-2.5 w-2.5 ml-0.5 text-slate-400" />
+                                </p>
+                              </div>
+                            </div>
+                            
                             {demoResults && (
                               <button
-                                onClick={() => copyDemoText(presets[selectedPreset].linkedin, "linkedin")}
-                                className="text-slate-400 hover:text-indigo-500 transition-colors"
+                                onClick={() => copyDemoText(currentPreset.linkedin, "linkedin")}
+                                className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-zinc-800/50 transition-colors cursor-pointer"
+                                title="Copy Post"
                               >
                                 {copiedKey === "linkedin" ? (
-                                  <Check className="h-4.5 w-4.5 text-emerald-500" />
+                                  <Check className="h-4 w-4 text-emerald-500" />
                                 ) : (
                                   <Copy className="h-4 w-4" />
                                 )}
@@ -359,35 +380,75 @@ export default function LandingPage() {
                             )}
                           </div>
 
-                          <div className="text-[12.5px] leading-relaxed whitespace-pre-wrap text-slate-700 dark:text-zinc-300 pr-1 max-h-[160px] overflow-y-auto scrollbar-none typewriter-cursor">
+                          {/* LinkedIn Body Content */}
+                          <div className="text-[12.5px] leading-relaxed whitespace-pre-wrap text-slate-750 dark:text-zinc-300 pr-1 max-h-[170px] overflow-y-auto scrollbar-thin">
                             {demoGenerating ? (
                               <div className="space-y-2 mt-2">
-                                <div className="h-3.5 bg-slate-200 dark:bg-zinc-800 rounded w-full animate-pulse" />
-                                <div className="h-3.5 bg-slate-200 dark:bg-zinc-800 rounded w-5/6 animate-pulse" />
-                                <div className="h-3.5 bg-slate-200 dark:bg-zinc-800 rounded w-4/6 animate-pulse" />
+                                <div className="h-3.5 bg-slate-100 dark:bg-zinc-850 rounded w-full animate-pulse" />
+                                <div className="h-3.5 bg-slate-100 dark:bg-zinc-850 rounded w-11/12 animate-pulse" />
+                                <div className="h-3.5 bg-slate-100 dark:bg-zinc-850 rounded w-4/5 animate-pulse" />
                               </div>
-                            ) : (
+                            ) : displayedLinkedin ? (
                               displayedLinkedin
+                            ) : (
+                              <p className="text-slate-400 italic text-center py-12">Press &apos;Transform Content&apos; to see results</p>
                             )}
                           </div>
                         </div>
+
+                        {/* LinkedIn Footer Actions */}
+                        <div className="border-t border-slate-100 dark:border-zinc-900 px-2 py-2 flex items-center justify-between text-slate-500 dark:text-zinc-400 bg-slate-55/30 dark:bg-zinc-900/30">
+                          <button className="flex-1 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-zinc-800 flex items-center justify-center gap-1 text-[10px] font-bold transition-colors cursor-pointer">
+                            <ThumbsUp className="h-3.5 w-3.5" />
+                            <span>Like</span>
+                          </button>
+                          <button className="flex-1 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-zinc-800 flex items-center justify-center gap-1 text-[10px] font-bold transition-colors cursor-pointer">
+                            <MessageSquare className="h-3.5 w-3.5" />
+                            <span>Comment</span>
+                          </button>
+                          <button className="flex-1 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-zinc-800 flex items-center justify-center gap-1 text-[10px] font-bold transition-colors cursor-pointer">
+                            <Repeat className="h-3.5 w-3.5" />
+                            <span>Repost</span>
+                          </button>
+                          <button className="flex-1 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-zinc-800 flex items-center justify-center gap-1 text-[10px] font-bold transition-colors cursor-pointer">
+                            <Share2 className="h-3.5 w-3.5" />
+                            <span>Send</span>
+                          </button>
+                        </div>
                       </div>
 
-                      {/* Twitter Simulated Output */}
-                      <div className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800/80 rounded-xl p-4 flex flex-col justify-between min-h-[220px] relative overflow-hidden">
-                        <div className="absolute top-0 left-0 right-0 h-1 bg-sky-400" />
-                        <div>
-                          <div className="flex justify-between items-center mb-3">
-                            <span className="text-xs font-bold text-sky-400 flex items-center gap-1">
-                              🐦 Twitter/X Thread
-                            </span>
+                      {/* Twitter/X Mockup */}
+                      <div className="bg-[#000000] border border-zinc-850 rounded-2xl flex flex-col justify-between min-h-[260px] shadow-sm relative overflow-hidden text-left text-zinc-100">
+                        <div className="p-4 flex-1">
+                          {/* Twitter Header */}
+                          <div className="flex items-start justify-between mb-3">
+                            <div className="flex items-center gap-2">
+                              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm shadow-sm font-heading">
+                                CA
+                              </div>
+                              <div>
+                                <div className="flex items-center gap-1">
+                                  <h4 className="text-xs font-bold text-zinc-200">
+                                    ContentAlchemy
+                                  </h4>
+                                  <span className="w-3.5 h-3.5 bg-[#1d9bf0] text-white rounded-full flex items-center justify-center text-[7px] font-bold" title="Verified Creator">
+                                    ✓
+                                  </span>
+                                </div>
+                                <p className="text-[10px] text-zinc-500 mt-0.5">
+                                  @alchemy_codes • 2h
+                                </p>
+                              </div>
+                            </div>
+
                             {demoResults && (
                               <button
-                                onClick={() => copyDemoText(presets[selectedPreset].twitter, "twitter")}
-                                className="text-slate-400 hover:text-indigo-500 transition-colors"
+                                onClick={() => copyDemoText(currentPreset.twitter, "twitter")}
+                                className="p-1.5 rounded-lg text-zinc-500 hover:text-sky-400 hover:bg-zinc-900 transition-colors cursor-pointer"
+                                title="Copy Thread"
                               >
                                 {copiedKey === "twitter" ? (
-                                  <Check className="h-4.5 w-4.5 text-emerald-500" />
+                                  <Check className="h-4 w-4 text-emerald-500" />
                                 ) : (
                                   <Copy className="h-4 w-4" />
                                 )}
@@ -395,17 +456,49 @@ export default function LandingPage() {
                             )}
                           </div>
 
-                          <div className="text-[12.5px] leading-relaxed whitespace-pre-wrap text-slate-700 dark:text-zinc-300 pr-1 max-h-[160px] overflow-y-auto scrollbar-none typewriter-cursor">
+                          {/* Twitter Body Content */}
+                          <div className="text-[12.5px] leading-relaxed whitespace-pre-wrap text-zinc-200 pr-1 max-h-[170px] overflow-y-auto scrollbar-thin font-sans">
                             {demoGenerating ? (
                               <div className="space-y-2 mt-2">
-                                <div className="h-3.5 bg-slate-200 dark:bg-zinc-800 rounded w-full animate-pulse" />
-                                <div className="h-3.5 bg-slate-200 dark:bg-zinc-800 rounded w-4/6 animate-pulse" />
-                                <div className="h-3.5 bg-slate-200 dark:bg-zinc-800 rounded w-5/6 animate-pulse" />
+                                <div className="h-3.5 bg-zinc-800 rounded w-full animate-pulse" />
+                                <div className="h-3.5 bg-zinc-800 rounded w-5/6 animate-pulse" />
+                                <div className="h-3.5 bg-zinc-800 rounded w-11/12 animate-pulse" />
                               </div>
-                            ) : (
+                            ) : displayedTwitter ? (
                               displayedTwitter
+                            ) : (
+                              <p className="text-zinc-500 italic text-center py-12">Press &apos;Transform Content&apos; to see results</p>
                             )}
                           </div>
+                        </div>
+
+                        {/* Twitter Thread indicator */}
+                        {displayedTwitter && !demoGenerating && (
+                          <div className="px-4 pb-1.5 flex items-center gap-1.5">
+                            <div className="w-4 h-4 rounded-full bg-zinc-900 flex items-center justify-center text-[9px] text-zinc-500 font-bold border border-zinc-800">
+                              +
+                            </div>
+                            <span className="text-[9px] text-zinc-500 font-medium">Show this thread</span>
+                          </div>
+                        )}
+
+                        {/* Twitter Footer Actions */}
+                        <div className="border-t border-zinc-900 px-4 py-2 flex items-center justify-between text-zinc-500 bg-zinc-950/40">
+                          <button className="hover:text-sky-450 flex items-center gap-1 text-[10px] transition-colors cursor-pointer">
+                            <MessageSquare className="h-3.5 w-3.5" />
+                            <span>12</span>
+                          </button>
+                          <button className="hover:text-emerald-500 flex items-center gap-1 text-[10px] transition-colors cursor-pointer">
+                            <Repeat className="h-3.5 w-3.5" />
+                            <span>5</span>
+                          </button>
+                          <button className="hover:text-pink-500 flex items-center gap-1 text-[10px] transition-colors cursor-pointer">
+                            <Heart className="h-3.5 w-3.5" />
+                            <span>48</span>
+                          </button>
+                          <button className="hover:text-sky-450 flex items-center gap-1 text-[10px] transition-colors cursor-pointer">
+                            <Bookmark className="h-3.5 w-3.5" />
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -623,16 +716,16 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="max-w-3xl mx-auto px-4 text-center relative z-10"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-              Ready to save 10 hours every week?
+            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight font-heading">
+              Ready to scale your content distribution?
             </h2>
             <p className="mt-4 text-lg text-indigo-100">
-              Join growth-driven creators repurposing smarter, not harder.
+              Join modern creators and marketing teams automating their multi-channel pipeline.
             </p>
             <Link href="/signup">
               <Button
                 size="lg"
-                className="mt-8 bg-white text-indigo-600 hover:bg-indigo-50 font-semibold px-10 h-13 text-base shadow-xl hover:scale-105 active:scale-95 transition-all duration-300"
+                className="mt-8 bg-white text-indigo-600 hover:bg-indigo-50 font-semibold px-10 h-13 text-base shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
               >
                 Get Started Free
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -644,11 +737,11 @@ export default function LandingPage() {
         {/* Footer */}
         <footer className="py-12 border-t border-slate-200/50 dark:border-zinc-800/50 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-sm transition-colors">
           <div className="max-w-5xl mx-auto px-4 sm:px-8 text-center">
-            <p className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-cyan-500 bg-clip-text text-transparent">
+            <p className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-cyan-500 bg-clip-text text-transparent font-heading">
               ContentAlchemy
             </p>
             <p className="mt-2 text-sm text-slate-400 dark:text-zinc-500 font-medium">
-              Built with Next.js, FastAPI, and Claude AI.
+              The editorial workspace for multi-channel creators.
             </p>
           </div>
         </footer>

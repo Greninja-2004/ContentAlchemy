@@ -25,17 +25,21 @@ function AuthCallbackInner() {
         google_userinfo_failed: "Could not fetch your Google profile.",
         google_missing_info: "Google did not return your email. Please try again.",
       };
-      setErrorMsg(messages[error] || "Authentication failed.");
-      setStatus("error");
-      setTimeout(() => router.push("/login"), 3000);
-      return;
+      const timer = setTimeout(() => {
+        setErrorMsg(messages[error] || "Authentication failed.");
+        setStatus("error");
+        setTimeout(() => router.push("/login"), 3000);
+      }, 0);
+      return () => clearTimeout(timer);
     }
 
     if (!token) {
-      setErrorMsg("No authentication token received.");
-      setStatus("error");
-      setTimeout(() => router.push("/login"), 3000);
-      return;
+      const timer = setTimeout(() => {
+        setErrorMsg("No authentication token received.");
+        setStatus("error");
+        setTimeout(() => router.push("/login"), 3000);
+      }, 0);
+      return () => clearTimeout(timer);
     }
 
     api.setToken(token);

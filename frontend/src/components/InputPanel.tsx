@@ -54,11 +54,14 @@ export function InputPanel({ prefill, onPrefillUsed, onGenerationSuccess }: Inpu
 
   useEffect(() => {
     if (prefill) {
-      setContent(prefill.content);
-      setSourceType(prefill.sourceType);
-      setTone(prefill.tone);
-      setSelectedFormats(prefill.formats);
-      onPrefillUsed?.();
+      const timer = setTimeout(() => {
+        setContent(prefill.content);
+        setSourceType(prefill.sourceType);
+        setTone(prefill.tone);
+        setSelectedFormats(prefill.formats);
+        onPrefillUsed?.();
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [prefill, onPrefillUsed]);
 
@@ -112,13 +115,13 @@ export function InputPanel({ prefill, onPrefillUsed, onGenerationSuccess }: Inpu
               }}
             >
               <TabsList className="mb-4 bg-slate-100 dark:bg-zinc-800/50 p-1 rounded-xl">
-                <TabsTrigger value="paste" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-zinc-900 data-[state=active]:shadow-sm">
+                <TabsTrigger value="paste" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-zinc-900 data-[state=active]:shadow-sm cursor-pointer">
                   Paste Text
                 </TabsTrigger>
-                <TabsTrigger value="youtube" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-zinc-900 data-[state=active]:shadow-sm">
+                <TabsTrigger value="youtube" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-zinc-900 data-[state=active]:shadow-sm cursor-pointer">
                   YouTube URL
                 </TabsTrigger>
-                <TabsTrigger value="blog" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-zinc-900 data-[state=active]:shadow-sm">
+                <TabsTrigger value="blog" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-zinc-900 data-[state=active]:shadow-sm cursor-pointer">
                   Blog Link
                 </TabsTrigger>
               </TabsList>
@@ -191,7 +194,7 @@ export function InputPanel({ prefill, onPrefillUsed, onGenerationSuccess }: Inpu
             <div>
               <Label className="text-sm font-bold text-slate-900 dark:text-zinc-100">Choose Tone</Label>
               <Select value={tone} onValueChange={(val) => { if (val) setTone(val); }}>
-                <SelectTrigger className="mt-2 h-11 rounded-xl border-slate-200 dark:border-zinc-800/80 text-slate-700 dark:text-zinc-200">
+                <SelectTrigger className="mt-2 h-11 rounded-xl border-slate-200 dark:border-zinc-800/80 text-slate-700 dark:text-zinc-200 cursor-pointer">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="dark:bg-zinc-900 dark:border-zinc-850">
@@ -224,7 +227,7 @@ export function InputPanel({ prefill, onPrefillUsed, onGenerationSuccess }: Inpu
                     onClick={() => toggleFormat(fmt.id)}
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.96 }}
-                    className={`p-3 rounded-xl border-2 transition-all duration-200 text-center relative ${
+                    className={`p-3 rounded-xl border-2 transition-all duration-200 text-center relative cursor-pointer ${
                       selectedFormats.includes(fmt.id)
                         ? "border-indigo-500 bg-indigo-50/50 dark:bg-indigo-950/30 shadow-sm shadow-indigo-100/10 text-indigo-900 dark:text-indigo-300"
                         : "border-slate-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/50 hover:border-indigo-200 dark:hover:border-zinc-700 hover:bg-slate-50 dark:hover:bg-zinc-800/50 text-slate-700 dark:text-zinc-400"
@@ -250,7 +253,7 @@ export function InputPanel({ prefill, onPrefillUsed, onGenerationSuccess }: Inpu
             <Button
               onClick={handleGenerate}
               disabled={!content.trim() || selectedFormats.length === 0 || isLoading}
-              className="w-full h-13 text-base font-semibold rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg shadow-indigo-200 dark:shadow-none disabled:opacity-50 disabled:shadow-none transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] text-white"
+              className="w-full h-13 text-base font-semibold rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg shadow-indigo-200 dark:shadow-none disabled:opacity-50 disabled:shadow-none transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] text-white cursor-pointer"
               size="lg"
             >
               {isLoading ? (

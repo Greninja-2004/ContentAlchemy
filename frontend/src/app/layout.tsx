@@ -1,18 +1,25 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { TwentyFirstToolbar } from "@21st-extension/toolbar-next";
+import { ReactPlugin } from "@21st-extension/react";
 import "./globals.css";
 
-const inter = Inter({
+const outfit = Outfit({
+  variable: "--font-heading",
+  subsets: ["latin"],
+});
+
+const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "ContentAlchemy — Content. Once. Everywhere.",
+  title: "ContentAlchemy — The Publishing Engine for Modern Creators",
   description:
-    "Transform one piece of content into 10+ platform-specific formats in seconds. Powered by AI.",
+    "Transform raw articles, videos, and scripts into ready-to-publish threads, scripts, and newsletters. Optimized for platform algorithms.",
 };
 
 export default function RootLayout({
@@ -21,12 +28,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`} suppressHydrationWarning>
+    <html lang="en" className={`${plusJakarta.variable} ${outfit.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col font-sans">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
           <Toaster position="bottom-right" richColors />
         </ThemeProvider>
+        <TwentyFirstToolbar config={{ plugins: [ReactPlugin] }} />
       </body>
     </html>
   );
