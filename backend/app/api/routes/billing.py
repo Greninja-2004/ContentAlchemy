@@ -60,7 +60,13 @@ async def create_checkout_session(
 
         price_id = settings.STRIPE_PRO_PRICE_ID if plan == "pro" else settings.STRIPE_MAX_PRICE_ID
         if not price_id:
-            raise HTTPException(status_code=400, detail=f"Stripe Price ID for '{plan}' plan is not configured in .env.")
+            # Fallback to mock mode if Stripe Price ID is not configured (allows testing upgrades in preview/demo deploys)
+            current_user.subscription_tier = plan
+            current_user.subscription_status = "active"
+            # 1 year mock duration
+            current_user.subscription_end = datetime.now(timezone.utc).replace(year=datetime.now(timezone.utc).year + 1)
+            await db.commit()
+            return {"url": f"{settings.FRONTEND_URL}/dashboard/settings?mock_success=true&plan={plan}"}
 
         session = await stripe.checkout.Session.create_async(
             customer=current_user.stripe_customer_id,
