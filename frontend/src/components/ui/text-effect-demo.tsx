@@ -54,7 +54,7 @@ function TextEffectWithCustomVariants() {
         scale: 1,
         color: getRandomColor(),
         transition: {
-          type: 'spring',
+          type: 'spring' as const,
           damping: 12,
           stiffness: 200,
         },
