@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { TwentyFirstToolbar } from "@21st-extension/toolbar-next";
-import { ReactPlugin } from "@21st-extension/react";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -34,7 +32,6 @@ export default function RootLayout({
           {children}
           <Toaster position="bottom-right" richColors />
         </ThemeProvider>
-        <TwentyFirstToolbar config={{ plugins: [ReactPlugin] }} />
       </body>
     </html>
   );

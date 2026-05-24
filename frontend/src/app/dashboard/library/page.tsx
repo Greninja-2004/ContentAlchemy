@@ -88,7 +88,7 @@ export default function LibraryPage() {
           </div>
         ) : items.length === 0 ? (
           <div className="text-center py-20">
-            <FileText className="h-12 w-12 text-slate-350 dark:text-zinc-650 mx-auto mb-4" />
+            <FileText className="h-12 w-12 text-slate-350 dark:text-zinc-500 mx-auto mb-4" />
             <p className="text-slate-500 dark:text-zinc-400">No generations yet.</p>
             <Button
               variant="outline"
@@ -113,7 +113,7 @@ export default function LibraryPage() {
                 </p>
                 <div className="flex flex-wrap gap-1.5 mb-3">
                   {getFormatsGenerated(item).map((fmt) => (
-                    <Badge key={fmt} variant="secondary" className="text-xs bg-slate-100 dark:bg-zinc-800 text-slate-750 dark:text-zinc-350 border-slate-200/50 dark:border-zinc-700/60">
+                    <Badge key={fmt} variant="secondary" className="text-xs bg-slate-100 dark:bg-zinc-800 text-slate-750 dark:text-zinc-300 border-slate-200/50 dark:border-zinc-700/60">
                       {fmt}
                     </Badge>
                   ))}

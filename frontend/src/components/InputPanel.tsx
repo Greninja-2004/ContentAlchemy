@@ -134,7 +134,7 @@ export function InputPanel({ prefill, onPrefillUsed, onGenerationSuccess }: Inpu
                     setContent(e.target.value);
                     setSourceType("text_paste");
                   }}
-                  className="min-h-[200px] sm:min-h-[280px] lg:min-h-[320px] font-mono text-sm resize-y rounded-xl border-slate-200 dark:border-zinc-850 focus:border-indigo-400 dark:focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950/40 transition-all duration-200 text-slate-800 dark:text-zinc-200"
+                  className="min-h-[200px] sm:min-h-[280px] lg:min-h-[320px] font-mono text-sm resize-y rounded-xl border-slate-200 dark:border-zinc-800 focus:border-indigo-400 dark:focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950/40 transition-all duration-200 text-slate-800 dark:text-zinc-200"
                 />
                 {content && (
                   <p className="mt-2 text-xs text-slate-400 dark:text-zinc-500">
@@ -156,7 +156,7 @@ export function InputPanel({ prefill, onPrefillUsed, onGenerationSuccess }: Inpu
                       setContent(e.target.value);
                       setSourceType("youtube_url");
                     }}
-                    className="h-12 rounded-xl border-slate-200 dark:border-zinc-850 focus:border-indigo-400 dark:focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950/40 text-slate-800 dark:text-zinc-200"
+                    className="h-12 rounded-xl border-slate-200 dark:border-zinc-800 focus:border-indigo-400 dark:focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950/40 text-slate-800 dark:text-zinc-200"
                   />
                 </div>
               </TabsContent>
@@ -174,7 +174,7 @@ export function InputPanel({ prefill, onPrefillUsed, onGenerationSuccess }: Inpu
                       setContent(e.target.value);
                       setSourceType("blog_link");
                     }}
-                    className="h-12 rounded-xl border-slate-200 dark:border-zinc-850 focus:border-indigo-400 dark:focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950/40 text-slate-800 dark:text-zinc-200"
+                    className="h-12 rounded-xl border-slate-200 dark:border-zinc-800 focus:border-indigo-400 dark:focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950/40 text-slate-800 dark:text-zinc-200"
                   />
                 </div>
               </TabsContent>
@@ -197,7 +197,7 @@ export function InputPanel({ prefill, onPrefillUsed, onGenerationSuccess }: Inpu
                 <SelectTrigger className="mt-2 h-11 rounded-xl border-slate-200 dark:border-zinc-800/80 text-slate-700 dark:text-zinc-200 cursor-pointer">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="dark:bg-zinc-900 dark:border-zinc-850">
+                <SelectContent className="dark:bg-zinc-900 dark:border-zinc-800">
                   <SelectItem value="professional">Professional</SelectItem>
                   <SelectItem value="casual">Casual</SelectItem>
                   <SelectItem value="humorous">Humorous</SelectItem>

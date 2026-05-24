@@ -18,6 +18,7 @@ build/
 *.db
 *.log
 backend/venv/
+backend/venv_win/
 backend/.env
 frontend/.env.local
 frontend/node_modules/

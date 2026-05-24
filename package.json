@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@21st-extension/toolbar": "^0.5.14",
     "motion": "^12.40.0"
   }
 }

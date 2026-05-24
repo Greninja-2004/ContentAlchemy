@@ -375,7 +375,7 @@ function ResultCard({
             />
           </div>
 
-          <div className="flex items-center justify-between text-[11px] text-slate-400 dark:text-zinc-550 pt-4 mt-2 border-t border-slate-100 dark:border-zinc-800/60">
+          <div className="flex items-center justify-between text-[11px] text-slate-400 dark:text-zinc-400 pt-4 mt-2 border-t border-slate-100 dark:border-zinc-800/60">
             <div className="flex items-center gap-3">
               <span className="flex items-center gap-1">
                 <FileText className="h-3 w-3" />
@@ -447,7 +447,7 @@ function SocialMockup({ format, text, meta }: MockupProps) {
       );
     case "twitter":
       return (
-        <div className="bg-[#000000] border border-zinc-850 rounded-2xl flex flex-col justify-between flex-1 shadow-sm text-left text-zinc-100 overflow-hidden font-sans">
+        <div className="bg-[#000000] border border-zinc-800 rounded-2xl flex flex-col justify-between flex-1 shadow-sm text-left text-zinc-100 overflow-hidden font-sans">
           <div className="p-4 flex-1">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm">
@@ -492,7 +492,7 @@ function SocialMockup({ format, text, meta }: MockupProps) {
       );
     case "tiktok":
       return (
-        <div className="bg-zinc-950 border border-zinc-800 rounded-2xl flex flex-col justify-between flex-1 shadow-sm text-left text-zinc-150 overflow-hidden font-sans relative">
+        <div className="bg-zinc-950 border border-zinc-800 rounded-2xl flex flex-col justify-between flex-1 shadow-sm text-left text-zinc-100 overflow-hidden font-sans relative">
           <div className="absolute top-0 right-0 p-3 flex flex-col gap-3 z-10">
             <div className="w-8 h-8 rounded-full bg-zinc-900/80 backdrop-blur-md border border-zinc-800 flex items-center justify-center text-rose-500 font-bold text-xs">
               ❤️
@@ -569,7 +569,7 @@ function SocialMockup({ format, text, meta }: MockupProps) {
           </div>
           <div className="p-4 flex-1">
             <div className="bg-slate-50 dark:bg-zinc-900/60 p-3 rounded-xl">
-              <span className="text-[10px] font-bold text-slate-450 dark:text-zinc-550 uppercase tracking-widest block mb-1">Video Info Panel</span>
+              <span className="text-[10px] font-bold text-slate-450 dark:text-zinc-400 uppercase tracking-widest block mb-1">Video Info Panel</span>
               <div className="text-[12px] leading-relaxed whitespace-pre-wrap text-slate-750 dark:text-zinc-300 pr-1 max-h-[130px] overflow-y-auto scrollbar-thin">
                 {text}
               </div>

@@ -334,10 +334,19 @@
 
 /* Additional utility classes for live canvas */
 .canvas-bg-overlay {
-  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 100%);
+  display: none;
 }
 
 .dark .canvas-bg-overlay {
-  background: radial-gradient(circle at 50% 50%, rgba(9, 9, 11, 0) 0%, rgba(9, 9, 11, 0.8) 100%);
+  display: none;
+}
+
+/* Absolutely eliminate any border or shadow on nav and header elements globally */
+nav, header, [class*="Navbar"] {
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background-image: none !important;
 }
 

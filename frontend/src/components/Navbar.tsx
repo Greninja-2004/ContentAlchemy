@@ -36,17 +36,34 @@ export function Navbar() {
   };
 
   return (
-    <nav className="h-16 border-b border-slate-200/50 dark:border-zinc-800/50 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 h-full flex items-center justify-between">
+    <nav 
+      className="h-20 bg-transparent sticky top-0 z-50 transition-colors duration-200"
+      style={{ border: "none", borderBottom: "none", boxShadow: "none" }}
+    >
+      <div 
+        className="max-w-7xl mx-auto px-4 sm:px-8 h-full flex items-center justify-between"
+        style={{ border: "none", borderBottom: "none" }}
+      >
         <Link
           href={isAuthenticated ? "/dashboard" : "/"}
-          className="flex items-center gap-2 group"
+          className="flex items-center gap-2.5 group no-underline"
+          style={{ textDecoration: "none" }}
         >
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <Sparkles className="h-4 w-4 text-white" />
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center group-hover:scale-[1.06] transition-transform duration-300 shadow-md shadow-indigo-500/10">
+            <svg className="h-5 w-5 text-white animate-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M10 2h4M12 2v6M6 22h12M18 19.5c.9-1.2 1.5-2.7 1.5-4.5c0-4.5-3.5-7.5-7.5-7.5s-7.5 3-7.5 7.5c0 1.8.6 3.3 1.5 4.5" />
+              <path d="M8.5 14a3.5 3.5 0 1 1 7 0c0 1.9-1.5 3.5-3.5 3.5S8.5 15.9 8.5 14z" className="fill-white/20" />
+              <path d="M12 11.5v3M10.5 13h3" className="stroke-indigo-200" />
+            </svg>
           </div>
-          <span className="text-lg font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            ContentAlchemy
+          <span 
+            className="text-lg font-extrabold tracking-tight text-slate-800 dark:text-zinc-100 group-hover:text-slate-900 dark:group-hover:text-white transition-colors duration-300 no-underline"
+            style={{ textDecoration: "none" }}
+          >
+            Content<span 
+              className="bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent font-black no-underline"
+              style={{ textDecoration: "none" }}
+            >Alchemy</span>
           </span>
         </Link>
 

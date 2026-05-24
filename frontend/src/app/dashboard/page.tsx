@@ -7,7 +7,7 @@ import { api, GenerationItem } from "@/lib/api";
 import { Navbar } from "@/components/Navbar";
 import { InputPanel } from "@/components/InputPanel";
 import { CustomCursor } from "@/components/CustomCursor";
-import { AnimatedBackground } from "@/components/AnimatedBackground";
+import { WebGLBackground } from "@/components/WebGLBackground";
 import { toast } from "sonner";
 import { 
   Sparkles, 
@@ -278,7 +278,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-slate-50/50 dark:bg-zinc-950/50 text-slate-900 dark:text-zinc-50 relative transition-colors duration-200 overflow-x-hidden pb-12">
       <CustomCursor />
-      <AnimatedBackground />
+      <WebGLBackground />
 
       <div className="fixed inset-0 grid-pattern pointer-events-none" />
       
@@ -293,10 +293,6 @@ export default function DashboardPage() {
           {/* Header Banner */}
           <div className="flex flex-col gap-4 bg-white/40 dark:bg-zinc-900/40 border border-slate-200/50 dark:border-zinc-800/40 p-5 sm:p-8 rounded-3xl backdrop-blur-xl shadow-sm">
             <div className="space-y-1.5">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-100/60 dark:border-indigo-900/40 animate-pulse">
-                <Sparkles className="h-3 w-3" />
-                ContentAlchemy Engine v2.0
-              </div>
               <h1 className="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-zinc-50 tracking-tight">
                 Welcome back, {user?.name || "Creator"}
               </h1>
@@ -338,9 +334,9 @@ export default function DashboardPage() {
               className="bg-white/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/60 p-5 rounded-2xl backdrop-blur-md shadow-sm flex items-center justify-between card-hover"
             >
               <div className="space-y-1">
-                <span className="text-xs font-bold text-slate-400 dark:text-zinc-550 uppercase tracking-widest block font-heading">Daily Quota</span>
+                <span className="text-xs font-bold text-slate-400 dark:text-zinc-400 uppercase tracking-widest block font-heading">Daily Quota</span>
                 <div className="flex items-center gap-1.5">
-                  <span className="text-lg font-bold text-slate-800 dark:text-zinc-150">
+                  <span className="text-lg font-bold text-slate-800 dark:text-zinc-100">
                     {isUnlimited ? "Unlimited" : `${count} / ${limit}`}
                   </span>
                   <Badge className="text-[9px] uppercase tracking-wide bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-100/60 dark:border-indigo-900/20">
@@ -366,7 +362,7 @@ export default function DashboardPage() {
               <div className="relative w-16 h-16 flex items-center justify-center">
                 <svg className="w-full h-full transform -rotate-90">
                   <circle
-                    className="text-slate-100 dark:text-zinc-850"
+                    className="text-slate-100 dark:text-zinc-800"
                     strokeWidth="3.5"
                     stroke="currentColor"
                     fill="transparent"
@@ -387,7 +383,7 @@ export default function DashboardPage() {
                     cy="32"
                   />
                 </svg>
-                <div className="absolute text-xs font-extrabold text-slate-700 dark:text-zinc-350">
+                <div className="absolute text-xs font-extrabold text-slate-700 dark:text-zinc-300">
                   {isUnlimited ? "∞" : `${Math.round(percentage)}%`}
                 </div>
               </div>
@@ -399,11 +395,11 @@ export default function DashboardPage() {
               className="bg-white/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/60 p-5 rounded-2xl backdrop-blur-md shadow-sm flex items-center justify-between card-hover"
             >
               <div className="space-y-1">
-                <span className="text-xs font-bold text-slate-400 dark:text-zinc-550 uppercase tracking-widest block font-heading">Saved Effort</span>
-                <span className="text-lg font-bold text-slate-800 dark:text-zinc-150 block">
+                <span className="text-xs font-bold text-slate-400 dark:text-zinc-400 uppercase tracking-widest block font-heading">Saved Effort</span>
+                <span className="text-lg font-bold text-slate-800 dark:text-zinc-100 block">
                   {usage ? formatSavedTime(usage.total_count) : "0 mins"}
                 </span>
-                <span className="text-[10px] text-slate-400 dark:text-zinc-550 block">
+                <span className="text-[10px] text-slate-400 dark:text-zinc-400 block">
                   Est. 15m saved per render
                 </span>
               </div>
@@ -418,13 +414,13 @@ export default function DashboardPage() {
               className="bg-white/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/60 p-5 rounded-2xl backdrop-blur-md shadow-sm flex items-center justify-between card-hover"
             >
               <div className="space-y-1">
-                <span className="text-xs font-bold text-slate-400 dark:text-zinc-550 uppercase tracking-widest block font-heading">Total Creations</span>
-                <span className="text-lg font-bold text-slate-800 dark:text-zinc-150 block">
+                <span className="text-xs font-bold text-slate-400 dark:text-zinc-400 uppercase tracking-widest block font-heading">Total Creations</span>
+                <span className="text-lg font-bold text-slate-800 dark:text-zinc-100 block">
                   {usage?.total_count ?? 0} items
                 </span>
                 <button
                   onClick={() => router.push("/dashboard/library")}
-                  className="text-[10px] text-slate-400 dark:text-zinc-550 hover:text-indigo-500 dark:hover:text-indigo-400 hover:underline flex items-center gap-0.5 font-medium cursor-pointer"
+                  className="text-[10px] text-slate-400 dark:text-zinc-400 hover:text-indigo-500 dark:hover:text-indigo-400 hover:underline flex items-center gap-0.5 font-medium cursor-pointer"
                 >
                   Explore library index <ChevronRight className="h-2.5 w-2.5" />
                 </button>
@@ -440,15 +436,15 @@ export default function DashboardPage() {
               className="bg-white/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/60 p-5 rounded-2xl backdrop-blur-md shadow-sm flex items-center justify-between card-hover"
             >
               <div className="space-y-1">
-                <span className="text-xs font-bold text-slate-400 dark:text-zinc-550 uppercase tracking-widest block font-heading">Alchemy Engine</span>
-                <span className="text-lg font-bold text-slate-800 dark:text-zinc-150 flex items-center gap-1.5">
+                <span className="text-xs font-bold text-slate-400 dark:text-zinc-400 uppercase tracking-widest block font-heading">Alchemy Engine</span>
+                <span className="text-lg font-bold text-slate-800 dark:text-zinc-100 flex items-center gap-1.5">
                   Gemini API Flash
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                   </span>
                 </span>
-                <span className="text-[10px] text-slate-400 dark:text-zinc-550 block">
+                <span className="text-[10px] text-slate-400 dark:text-zinc-400 block">
                   Latency: Healthy (Flash LLM)
                 </span>
               </div>
@@ -466,7 +462,7 @@ export default function DashboardPage() {
             <div className="xl:col-span-2 space-y-4">
               <div className="flex items-center justify-between px-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-slate-450 dark:text-zinc-550 uppercase tracking-widest">Workspace</span>
+                  <span className="text-xs font-bold text-slate-450 dark:text-zinc-400 uppercase tracking-widest">Workspace</span>
                   <span className="h-px bg-slate-200 dark:bg-zinc-800 w-16" />
                 </div>
               </div>
@@ -486,7 +482,7 @@ export default function DashboardPage() {
                   <Zap className="h-4 w-4 text-amber-500 fill-amber-500/20" />
                   Quick Recipe Presets
                 </h2>
-                <p className="text-[11px] text-slate-400 dark:text-zinc-550 mb-4">
+                <p className="text-[11px] text-slate-400 dark:text-zinc-400 mb-4">
                   Select a preset template recipe to prefill options and input format guidelines immediately.
                 </p>
                 <div className="space-y-2.5">
@@ -497,7 +493,7 @@ export default function DashboardPage() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.05 }}
                       onClick={() => handleApplyTemplate(tpl)}
-                      className="p-3.5 rounded-xl border border-slate-100 dark:border-zinc-800/60 bg-white/40 dark:bg-zinc-950/20 hover:border-indigo-300 dark:hover:border-zinc-700 hover:bg-slate-50/50 dark:hover:bg-zinc-850/40 cursor-pointer transition-all group flex items-start justify-between"
+                      className="p-3.5 rounded-xl border border-slate-100 dark:border-zinc-800/60 bg-white/40 dark:bg-zinc-950/20 hover:border-indigo-300 dark:hover:border-zinc-700 hover:bg-slate-50/50 dark:hover:bg-zinc-800/40 cursor-pointer transition-all group flex items-start justify-between"
                     >
                       <div className="space-y-1">
                         <div className="flex items-center gap-1.5">
@@ -510,7 +506,7 @@ export default function DashboardPage() {
                           {tpl.description}
                         </p>
                       </div>
-                      <ChevronRight className="h-3.5 w-3.5 text-slate-350 dark:text-zinc-650 group-hover:translate-x-0.5 transition-transform" />
+                      <ChevronRight className="h-3.5 w-3.5 text-slate-350 dark:text-zinc-500 group-hover:translate-x-0.5 transition-transform" />
                     </motion.div>
                   ))}
                 </div>
@@ -555,7 +551,7 @@ export default function DashboardPage() {
                         onClick={() => setSelectedRecent(item)}
                         className="p-3 rounded-xl border border-slate-100 dark:border-zinc-800/80 bg-white/40 dark:bg-zinc-950/20 hover:border-indigo-200 dark:hover:border-indigo-900/60 hover:shadow-xs cursor-pointer transition-all group relative flex flex-col justify-between"
                       >
-                        <p className="text-[11px] text-slate-650 dark:text-zinc-350 line-clamp-2 font-medium mb-2.5 pr-6 leading-relaxed">
+                        <p className="text-[11px] text-slate-650 dark:text-zinc-300 line-clamp-2 font-medium mb-2.5 pr-6 leading-relaxed">
                           {item.original_content}
                         </p>
                         <div className="flex items-center justify-between">
@@ -644,7 +640,7 @@ export default function DashboardPage() {
                   </div>
                   <div>
                     <span className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-widest block mb-1">Tone Profile</span>
-                    <span className="text-xs font-bold text-slate-700 dark:text-zinc-350 capitalize bg-slate-100 dark:bg-zinc-850 px-2 py-0.5 rounded">
+                    <span className="text-xs font-bold text-slate-700 dark:text-zinc-300 capitalize bg-slate-100 dark:bg-zinc-800 px-2 py-0.5 rounded">
                       ✨ {selectedRecent.tone}
                     </span>
                   </div>
@@ -685,7 +681,7 @@ export default function DashboardPage() {
                                   <Check className="h-3 w-3" /> Copied!
                                 </span>
                               ) : (
-                                <span className="flex items-center gap-0.5 text-slate-500 dark:text-zinc-450">
+                                <span className="flex items-center gap-0.5 text-slate-500 dark:text-zinc-400">
                                   <Copy className="h-3 w-3" /> Copy
                                 </span>
                               )}
@@ -693,7 +689,7 @@ export default function DashboardPage() {
                             <Button
                               size="sm"
                               variant="ghost"
-                              className="h-7 w-7 p-0 text-slate-400 hover:text-slate-800 dark:hover:text-zinc-350"
+                              className="h-7 w-7 p-0 text-slate-400 hover:text-slate-800 dark:hover:text-zinc-300"
                               onClick={() => downloadSingleOutput(out.label, out.text)}
                             >
                               <Download className="h-3.5 w-3.5" />

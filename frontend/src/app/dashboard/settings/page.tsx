@@ -8,7 +8,8 @@ import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
-import { Check, CreditCard, Sparkles, Loader2 } from "lucide-react";
+import { Check, CreditCard, Sparkles, Loader2, Pencil, Star } from "lucide-react";
+import { CreativePricing } from "@/components/ui/creative-pricing";
 
 export default function SettingsPage() {
   const { user, isAuthenticated, setUser, logout } = useAuthStore();
@@ -99,6 +100,59 @@ export default function SettingsPage() {
       })
     : null;
 
+  const pricingTiers = [
+    {
+      name: "Free",
+      icon: <Pencil className="w-6 h-6" />,
+      price: 0,
+      description: "Basic features for simple creators.",
+      color: "amber",
+      buttonText: currentTier === "free" ? "Current Plan" : "Included",
+      disabled: true,
+      features: [
+        "2 content generations per day",
+        "8 platform outputs simultaneously",
+        "Instant copy to clipboard",
+      ],
+    },
+    {
+      name: "Pro",
+      icon: <Star className="w-6 h-6" />,
+      price: 9,
+      description: "For active content creators needing more.",
+      color: "blue",
+      popular: currentTier !== "max",
+      buttonText: loadingPlan === "pro" ? "Upgrading..." : currentTier === "pro" ? "Current Plan" : currentTier === "max" ? "Included" : "Upgrade to Pro",
+      disabled: currentTier !== "free" || loadingPlan !== null,
+      loading: loadingPlan === "pro",
+      onClick: () => handleUpgrade("pro"),
+      features: [
+        "15 content generations per day",
+        "4 platform outputs simultaneously",
+        "Core YouTube transcript parsing",
+        "Comparison split view",
+      ],
+    },
+    {
+      name: "Max",
+      icon: <Sparkles className="w-6 h-6" />,
+      price: 19,
+      description: "Supercharge your pipeline with unlimited runs.",
+      color: "purple",
+      popular: currentTier === "max",
+      buttonText: loadingPlan === "max" ? "Upgrading..." : currentTier === "max" ? "Current Plan" : "Upgrade to Max",
+      disabled: currentTier === "max" || loadingPlan !== null,
+      loading: loadingPlan === "max",
+      onClick: () => handleUpgrade("max"),
+      features: [
+        "Unlimited content generations",
+        "8 platform outputs simultaneously",
+        "High-priority generation rendering",
+        "Full YouTube & URL transcript parsing",
+      ],
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-50 transition-colors duration-200">
       <Navbar />
@@ -140,24 +194,22 @@ export default function SettingsPage() {
           </div>
 
           {/* Subscription Section */}
-          <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-slate-200 dark:border-zinc-800/80 p-6 shadow-sm">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-zinc-100 flex items-center gap-2">
+          <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-slate-200 dark:border-zinc-800/80 p-6 shadow-sm overflow-hidden relative">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-zinc-100 flex items-center gap-2 mb-4">
               Subscription
             </h2>
             <Separator className="my-4 bg-slate-100 dark:bg-zinc-800" />
 
-            {/* Current Tier Status Card */}
-            <div className="space-y-6">
+            {/* Current Active Plan Overview */}
+            <div className="mb-8">
               {currentTier === "max" || currentTier === "premium" ? (
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between p-5 bg-emerald-50/50 dark:bg-emerald-950/10 border border-emerald-100 dark:border-emerald-950/40 rounded-xl gap-4">
                   <div>
-                    <div className="flex items-center gap-2">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-350">
-                        Max Plan Active
-                      </span>
-                    </div>
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-350">
+                      Max Plan Active
+                    </span>
                     <p className="text-sm text-slate-500 dark:text-zinc-400 mt-2">
-                      You have active unlimited generation access.
+                      You have active unlimited generation access. Thank you for subscribing!
                     </p>
                     {formattedEndDate && (
                       <p className="text-xs text-slate-450 dark:text-zinc-500 mt-1">
@@ -168,7 +220,7 @@ export default function SettingsPage() {
                   <Button
                     onClick={handleManageBilling}
                     disabled={loadingPlan !== null}
-                    className="bg-slate-900 text-white hover:bg-slate-800 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700/80 self-start sm:self-center font-medium"
+                    className="bg-slate-900 text-white hover:bg-slate-800 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700/80 self-start sm:self-center font-medium cursor-pointer"
                   >
                     {loadingPlan === "billing" ? (
                       <Loader2 className="h-4 w-4 animate-spin mr-2" />
@@ -181,11 +233,9 @@ export default function SettingsPage() {
               ) : currentTier === "pro" ? (
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between p-5 bg-indigo-50/50 dark:bg-indigo-950/10 border border-indigo-100 dark:border-indigo-950/40 rounded-xl gap-4">
                   <div>
-                    <div className="flex items-center gap-2">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-350">
-                        Pro Plan Active
-                      </span>
-                    </div>
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-350">
+                      Pro Plan Active
+                    </span>
                     <p className="text-sm text-slate-500 dark:text-zinc-400 mt-2">
                       You have active Pro tier access (15 content generations per day).
                     </p>
@@ -195,177 +245,41 @@ export default function SettingsPage() {
                       </p>
                     )}
                   </div>
-                  <Button
-                    onClick={handleManageBilling}
-                    disabled={loadingPlan !== null}
-                    className="bg-slate-900 text-white hover:bg-slate-800 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700/80 self-start sm:self-center font-medium"
-                  >
-                    {loadingPlan === "billing" ? (
-                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                    ) : (
-                      <CreditCard className="h-4 w-4 mr-2" />
-                    )}
-                    Billing Settings
-                  </Button>
+                  <div className="flex flex-wrap gap-2.5">
+                    <Button
+                      onClick={handleManageBilling}
+                      disabled={loadingPlan !== null}
+                      className="bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700 font-medium cursor-pointer"
+                    >
+                      {loadingPlan === "billing" ? (
+                        <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                      ) : (
+                        <CreditCard className="h-4 w-4 mr-2" />
+                      )}
+                      Billing Settings
+                    </Button>
+                  </div>
                 </div>
               ) : (
-                <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-zinc-950 border border-slate-100 dark:border-zinc-900 rounded-xl">
-                  <div>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-zinc-850 text-slate-800 dark:text-zinc-300">
-                      Free Plan
-                    </span>
-                    <p className="text-sm text-slate-500 dark:text-zinc-400 mt-2">
-                      Limited to 2 content generations per day.
-                    </p>
-                  </div>
+                <div className="p-4 bg-slate-50 dark:bg-zinc-950 border border-slate-100 dark:border-zinc-900 rounded-xl">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-zinc-800 text-slate-800 dark:text-zinc-300">
+                    Free Plan
+                  </span>
+                  <p className="text-sm text-slate-500 dark:text-zinc-400 mt-2">
+                    Limited to 2 content generations per day. Upgrade to remove limits and unlock premium models!
+                  </p>
                 </div>
               )}
+            </div>
 
-              {/* Pricing Cards Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                {/* Pro Tier Upgrade Card */}
-                <div className={`relative overflow-hidden rounded-2xl border p-6 flex flex-col justify-between shadow-sm transition-all duration-300 ${
-                  currentTier === "pro"
-                    ? "border-indigo-500 bg-indigo-50/5 dark:bg-indigo-950/5"
-                    : "border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900"
-                }`}>
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">Pro Plan</span>
-                      {currentTier === "pro" && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-800 dark:text-indigo-300">Active</span>
-                      )}
-                    </div>
-                    <div className="flex items-baseline mt-4">
-                      <span className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-zinc-50">$9</span>
-                      <span className="ml-1 text-sm font-semibold text-slate-500 dark:text-zinc-400">/month</span>
-                    </div>
-                    <p className="text-xs text-slate-500 dark:text-zinc-400 mt-2 min-h-[32px]">
-                      Perfect for regular content creators needing expanded daily usage limits.
-                    </p>
-
-                    <Separator className="my-5 bg-slate-100 dark:bg-zinc-800/80" />
-
-                    <div className="space-y-3.5 text-sm text-slate-600 dark:text-zinc-300">
-                      <div className="flex items-center gap-2.5">
-                        <div className="rounded-full bg-indigo-50 dark:bg-indigo-950/60 p-0.5 text-indigo-600 dark:text-indigo-400">
-                          <Check className="h-3.5 w-3.5" />
-                        </div>
-                        <span>15 content generations per day</span>
-                      </div>
-                      <div className="flex items-center gap-2.5">
-                        <div className="rounded-full bg-indigo-50 dark:bg-indigo-950/60 p-0.5 text-indigo-600 dark:text-indigo-450">
-                          <Check className="h-3.5 w-3.5" />
-                        </div>
-                        <span>4 platform outputs simultaneously</span>
-                      </div>
-                      <div className="flex items-center gap-2.5">
-                        <div className="rounded-full bg-indigo-50 dark:bg-indigo-950/60 p-0.5 text-indigo-600 dark:text-indigo-450">
-                          <Check className="h-3.5 w-3.5" />
-                        </div>
-                        <span>Core YouTube transcript parsing</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-6">
-                    <Button
-                      onClick={() => handleUpgrade("pro")}
-                      disabled={currentTier !== "free" || loadingPlan !== null}
-                      className={`w-full font-semibold rounded-xl transition-all duration-200 ${
-                        currentTier === "pro"
-                          ? "bg-slate-100 text-slate-400 dark:bg-zinc-800 dark:text-zinc-500 cursor-default"
-                          : "bg-indigo-600 hover:bg-indigo-500 text-white dark:bg-indigo-500 dark:hover:bg-indigo-400"
-                      }`}
-                    >
-                      {loadingPlan === "pro" ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                      ) : currentTier === "pro" ? (
-                        "Current Plan"
-                      ) : currentTier === "max" || currentTier === "premium" ? (
-                        "Included in Max"
-                      ) : (
-                        "Upgrade to Pro"
-                      )}
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Max Tier Upgrade Card */}
-                <div className={`relative overflow-hidden rounded-2xl border p-6 flex flex-col justify-between shadow-md transition-all duration-300 ${
-                  currentTier === "max" || currentTier === "premium"
-                    ? "border-indigo-500 bg-indigo-50/5 dark:bg-indigo-950/5"
-                    : "border-indigo-100 dark:border-indigo-950/40 bg-gradient-to-br from-indigo-50/20 via-white to-transparent dark:from-indigo-950/10 dark:via-zinc-900/60 dark:to-transparent"
-                }`}>
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400 font-bold">
-                        <Sparkles className="h-4 w-4" />
-                        <span className="text-sm uppercase tracking-wide">Max Plan</span>
-                      </div>
-                      {(currentTier === "max" || currentTier === "premium") && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-800 dark:text-indigo-300">Active</span>
-                      )}
-                    </div>
-                    <div className="flex items-baseline mt-4">
-                      <span className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-zinc-50">$19</span>
-                      <span className="ml-1 text-sm font-semibold text-slate-500 dark:text-zinc-400">/month</span>
-                    </div>
-                    <p className="text-xs text-slate-500 dark:text-zinc-400 mt-2 min-h-[32px]">
-                      Supercharge output with unlimited rendering and full platform priority.
-                    </p>
-
-                    <Separator className="my-5 bg-indigo-100/50 dark:bg-zinc-800" />
-
-                    <div className="space-y-3.5 text-sm text-slate-650 dark:text-zinc-300">
-                      <div className="flex items-center gap-2.5">
-                        <div className="rounded-full bg-indigo-50 dark:bg-indigo-950/60 p-0.5 text-indigo-600 dark:text-indigo-400">
-                          <Check className="h-3.5 w-3.5" />
-                        </div>
-                        <span>Unlimited content generations</span>
-                      </div>
-                      <div className="flex items-center gap-2.5">
-                        <div className="rounded-full bg-indigo-50 dark:bg-indigo-950/60 p-0.5 text-indigo-600 dark:text-indigo-450">
-                          <Check className="h-3.5 w-3.5" />
-                        </div>
-                        <span>8 platform outputs simultaneously</span>
-                      </div>
-                      <div className="flex items-center gap-2.5">
-                        <div className="rounded-full bg-indigo-50 dark:bg-indigo-950/60 p-0.5 text-indigo-600 dark:text-indigo-450">
-                          <Check className="h-3.5 w-3.5" />
-                        </div>
-                        <span>High-priority generation rendering</span>
-                      </div>
-                      <div className="flex items-center gap-2.5">
-                        <div className="rounded-full bg-indigo-50 dark:bg-indigo-950/60 p-0.5 text-indigo-600 dark:text-indigo-450">
-                          <Check className="h-3.5 w-3.5" />
-                        </div>
-                        <span>Full YouTube & URL transcript parsing</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-6">
-                    <Button
-                      onClick={() => handleUpgrade("max")}
-                      disabled={currentTier === "max" || currentTier === "premium" || loadingPlan !== null}
-                      className={`w-full font-semibold rounded-xl transition-all duration-200 ${
-                        currentTier === "max" || currentTier === "premium"
-                          ? "bg-slate-100 text-slate-400 dark:bg-zinc-800 dark:text-zinc-500 cursor-default"
-                          : "bg-indigo-600 hover:bg-indigo-500 text-white dark:bg-indigo-500 dark:hover:bg-indigo-400 shadow-sm"
-                      }`}
-                    >
-                      {loadingPlan === "max" ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                      ) : currentTier === "max" || currentTier === "premium" ? (
-                        "Current Plan"
-                      ) : (
-                        "Upgrade to Max"
-                      )}
-                    </Button>
-                  </div>
-                </div>
-              </div>
+            {/* Custom Neo-Brutalist pricing component */}
+            <div className="py-6 border-t border-slate-100 dark:border-zinc-800">
+              <CreativePricing
+                tag="Formula Plans"
+                title="Change Subscription Tier"
+                description="Select an active formula below to adjust your workspace capability."
+                tiers={pricingTiers}
+              />
             </div>
           </div>
 

@@ -1,6 +1,7 @@
 "use client";
-
+ 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import {
@@ -22,11 +23,15 @@ import {
   Bookmark,
   Globe,
   User,
+  Pencil,
+  Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/Navbar";
 import { CustomCursor } from "@/components/CustomCursor";
-import { AnimatedBackground } from "@/components/AnimatedBackground";
+import { WebGLBackground } from "@/components/WebGLBackground";
+import { CreativePricing } from "@/components/ui/creative-pricing";
+import { TextEffect } from "@/components/ui/text-effect";
 
 const presets = [
   {
@@ -64,8 +69,57 @@ const formats = [
 ];
 
 export default function LandingPage() {
+  const router = useRouter();
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll();
+
+  const pricingTiers = [
+    {
+      name: "Free",
+      icon: <Pencil className="w-6 h-6" />,
+      price: 0,
+      description: "Start free. Explore format variations.",
+      color: "amber",
+      buttonText: "Get Started",
+      onClick: () => router.push("/signup"),
+      features: [
+        "3 generations/day",
+        "All 8 formats",
+        "Copy to clipboard",
+      ],
+    },
+    {
+      name: "Pro",
+      icon: <Star className="w-6 h-6" />,
+      price: 5,
+      description: "For active content creators",
+      color: "blue",
+      popular: true,
+      buttonText: "Start Pro",
+      onClick: () => router.push("/signup"),
+      features: [
+        "Unlimited generations",
+        "Priority processing",
+        "Save to library",
+        "Compare view",
+      ],
+    },
+    {
+      name: "Team",
+      icon: <Sparkles className="w-6 h-6" />,
+      price: 30,
+      description: "For agencies and high-volume teams",
+      color: "purple",
+      buttonText: "Contact Us",
+      onClick: () => router.push("/signup"),
+      features: [
+        "Up to 5 members",
+        "Shared library",
+        "API access",
+        "Priority support",
+      ],
+    },
+  ];
 
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
@@ -139,7 +193,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen relative overflow-hidden bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-50 transition-colors duration-200">
       <CustomCursor />
-      <AnimatedBackground />
+      <WebGLBackground />
 
       {/* Top Scroll Progress Bar */}
       <motion.div className="scroll-progress-bar" style={{ scaleX: scrollYProgress }} />
@@ -161,27 +215,19 @@ export default function LandingPage() {
             style={{ y: heroY, opacity: heroOpacity }}
             className="max-w-5xl mx-auto px-4 sm:px-8 text-center relative z-10"
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/40 text-sm text-indigo-700 dark:text-indigo-400 font-medium mb-8"
-            >
-              <Sparkles className="h-4 w-4 animate-pulse" />
-              Multi-channel Content Distribution
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1] font-heading"
-            >
-              Your content engine on{" "}
-              <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 bg-clip-text text-transparent glow-text">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1] font-heading flex flex-wrap justify-center items-center gap-x-[0.2em]">
+              <TextEffect per="word" preset="slide" delay={0.1} as="span" className="inline-block text-slate-900 dark:text-zinc-50">
+                Your content engine on
+              </TextEffect>
+              <motion.span
+                initial={{ opacity: 0, filter: "blur(12px)", y: 15 }}
+                animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6, type: "spring", damping: 15 }}
+                className="bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 bg-clip-text text-transparent glow-text inline-block"
+              >
                 autopilot.
-              </span>
-            </motion.h1>
+              </motion.span>
+            </h1>
 
             <motion.p
               initial={{ opacity: 0, y: 30 }}
@@ -277,7 +323,7 @@ export default function LandingPage() {
         </section>
 
         {/* Interactive Try-It-Out Demo Section */}
-        <section id="playground" className="py-24 relative bg-slate-100/30 dark:bg-zinc-950/30 border-b border-slate-200/40 dark:border-zinc-850">
+        <section id="playground" className="py-24 relative bg-slate-100/30 dark:bg-zinc-950/30 border-b border-slate-200/40 dark:border-zinc-800">
           <div className="max-w-5xl mx-auto px-4 sm:px-8">
             <div className="text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
@@ -384,9 +430,9 @@ export default function LandingPage() {
                           <div className="text-[12.5px] leading-relaxed whitespace-pre-wrap text-slate-750 dark:text-zinc-300 pr-1 max-h-[170px] overflow-y-auto scrollbar-thin">
                             {demoGenerating ? (
                               <div className="space-y-2 mt-2">
-                                <div className="h-3.5 bg-slate-100 dark:bg-zinc-850 rounded w-full animate-pulse" />
-                                <div className="h-3.5 bg-slate-100 dark:bg-zinc-850 rounded w-11/12 animate-pulse" />
-                                <div className="h-3.5 bg-slate-100 dark:bg-zinc-850 rounded w-4/5 animate-pulse" />
+                                <div className="h-3.5 bg-slate-100 dark:bg-zinc-800 rounded w-full animate-pulse" />
+                                <div className="h-3.5 bg-slate-100 dark:bg-zinc-800 rounded w-11/12 animate-pulse" />
+                                <div className="h-3.5 bg-slate-100 dark:bg-zinc-800 rounded w-4/5 animate-pulse" />
                               </div>
                             ) : displayedLinkedin ? (
                               displayedLinkedin
@@ -418,7 +464,7 @@ export default function LandingPage() {
                       </div>
 
                       {/* Twitter/X Mockup */}
-                      <div className="bg-[#000000] border border-zinc-850 rounded-2xl flex flex-col justify-between min-h-[260px] shadow-sm relative overflow-hidden text-left text-zinc-100">
+                      <div className="bg-[#000000] border border-zinc-800 rounded-2xl flex flex-col justify-between min-h-[260px] shadow-sm relative overflow-hidden text-left text-zinc-100">
                         <div className="p-4 flex-1">
                           {/* Twitter Header */}
                           <div className="flex items-start justify-between mb-3">
@@ -638,72 +684,13 @@ export default function LandingPage() {
         </section>
 
         {/* Pricing Section */}
-        <section className="py-24 relative">
-          <div className="max-w-4xl mx-auto px-4 sm:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-14"
-            >
-              <h2 className="text-3xl font-bold tracking-tight">Simple Pricing</h2>
-              <p className="mt-3 text-slate-500 dark:text-zinc-400">Start free. Upgrade when you need more power.</p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-              {[
-                { name: "Free", price: "$0", features: ["3 generations/day", "All 8 formats", "Copy to clipboard"], cta: "Get Started", highlight: false },
-                { name: "Pro", price: "$5", period: "/mo", features: ["Unlimited generations", "Priority processing", "Save to library", "Compare view"], cta: "Start Pro", highlight: true },
-                { name: "Team", price: "$30", period: "/mo", features: ["Up to 5 members", "Shared library", "API access", "Priority support"], cta: "Contact Us", highlight: false },
-              ].map((plan, i) => (
-                <motion.div
-                  key={plan.name}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className={`relative p-7 rounded-3xl border flex flex-col justify-between card-hover ${
-                    plan.highlight
-                      ? "border-indigo-500 bg-white dark:bg-zinc-900 shadow-xl shadow-indigo-100 dark:shadow-none scale-[1.03]"
-                      : "border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900"
-                  }`}
-                >
-                  <div>
-                    {plan.highlight && (
-                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs font-semibold rounded-full shadow-md">
-                        Most Popular
-                      </div>
-                    )}
-                    <h3 className="text-lg font-bold">{plan.name}</h3>
-                    <p className="mt-3">
-                      <span className="text-4xl font-bold">{plan.price}</span>
-                      {plan.period && <span className="text-slate-500 dark:text-zinc-400 text-sm">{plan.period}</span>}
-                    </p>
-                    <ul className="mt-6 space-y-3.5">
-                      {plan.features.map((f) => (
-                        <li key={f} className="flex items-center gap-2.5 text-sm text-slate-600 dark:text-zinc-400">
-                          <CheckCircle2 className="h-4 w-4 text-emerald-500 flex-shrink-0" />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <Link href="/signup" className="block mt-8">
-                    <Button
-                      className={`w-full h-11 font-semibold transition-all duration-300 hover:scale-105 active:scale-95 ${
-                        plan.highlight
-                          ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-200 dark:shadow-none"
-                          : "border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800"
-                      }`}
-                      variant={plan.highlight ? "default" : "outline"}
-                    >
-                      {plan.cta}
-                    </Button>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+        <section className="py-24 relative overflow-hidden bg-slate-50/50 dark:bg-zinc-950/20 border-y border-slate-200/40 dark:border-zinc-900/60">
+          <CreativePricing 
+            tag="Simple Pricing" 
+            title="Choose Your Alchemy Formula" 
+            description="Start free. Upgrade when you need more power." 
+            tiers={pricingTiers} 
+          />
         </section>
 
         {/* CTA Section */}
