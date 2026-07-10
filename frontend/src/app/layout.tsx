@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import Script from "next/script";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -33,11 +32,10 @@ export default function RootLayout({
           {children}
           <Toaster position="bottom-right" richColors />
         </ThemeProvider>
-        <Script
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9300266791509872"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
         />
       </body>
     </html>
