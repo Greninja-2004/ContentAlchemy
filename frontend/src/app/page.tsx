@@ -192,6 +192,11 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-50 transition-colors duration-200">
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9300266791509872"
+        crossOrigin="anonymous"
+      />
       <CustomCursor />
       <WebGLBackground />
 
@@ -730,6 +735,14 @@ export default function LandingPage() {
             <p className="mt-2 text-sm text-slate-400 dark:text-zinc-500 font-medium">
               The editorial workspace for multi-channel creators.
             </p>
+            <div className="mt-4 flex justify-center gap-6 text-xs font-semibold text-slate-500 dark:text-zinc-400">
+              <Link href="/privacy" className="hover:text-indigo-500 transition-colors">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="hover:text-indigo-500 transition-colors">
+                Terms of Service
+              </Link>
+            </div>
           </div>
         </footer>
       </div>
